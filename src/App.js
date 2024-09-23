@@ -66,7 +66,7 @@ const Layout = ({ isAuthenticated, setIsAuthenticated }) => {
           <Route path="/about" element={<AboutPage />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/productcard" element={<ProductCard />} />
-          <Route path="/Women" element={<Women />} />
+          <Route path="/women" element={<Women />} />
 
           {/* Handle undefined routes (404 page) */}
           {/* <Route path="*" element={<div>404 - Page Not Found</div>} /> */}
