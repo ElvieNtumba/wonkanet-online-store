@@ -1,0 +1,28 @@
+/* styles.css */
+
+body {
+  font-family: Arial, sans-serif;
+  background-image: url(https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.wallpaperflare.com%2Fwonderful-natue-forest-meadow-mountains-clouds-nature-and-landscapes-wallpaper-tfhlj&psig=AOvVaw3qyQgF83IPVosJiaxleSZT&ust=1726582267246000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCJDchKrSx4gDFQAAAAAdAAAAABAE);
+  background-size: cover;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 40px;
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 8px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+}
+
+h1 {
+  color: #333;
+}
+
+img.logo {
+  display: block;
+  margin: 0 auto 20px;
+  max-width: 150px;
+}

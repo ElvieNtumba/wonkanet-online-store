@@ -1,0 +1,10 @@
+/* src/App.css or src/components/Content.css */
+.content {
+  padding-top: 60px; /* Height of the header */
+  padding-bottom: 60px; 
+  box-sizing: border-box; 
+} 
+
+.All{
+  max-height: 900vh;
+}

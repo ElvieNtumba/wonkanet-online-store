@@ -1,0 +1,18 @@
+/* src/components/Footer.css */
+.footer {
+    /* position: fixed; Fixes the footer to the viewport */
+    bottom: 0; /* Position it at the bottom */
+    left: 0;
+    width: 100%; /* Full width */
+    background-color: #fff; /* Background color */
+    z-index: 1000; /* Ensures it stays above other content */
+    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1); /* Optional shadow for better visibility */
+    padding: 10px; /* Optional padding */
+    width: 97.5vw;
+  }
+  
+  /* Ensure content above the footer is not covered */
+  body {
+    margin-bottom: 60px; /* Adjust according to the height of your footer */
+  }
+  
