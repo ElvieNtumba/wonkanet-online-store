@@ -12,14 +12,10 @@ app.use(express.json());
 const uri = process.env.MONGODB_URI;
 
 let db, client;
-
 async function connectToMongo() {
   try {
-    console.log(uri);
-    client = new MongoClient(uri, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
+    console.log('Connecting to MongoDB...');
+    client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
     await client.connect();
     db = client.db("WONKANETclothingstoreDB");
     console.log("Connected to MongoDB");
@@ -27,6 +23,7 @@ async function connectToMongo() {
     console.error("Error connecting to MongoDB:", error);
   }
 }
+
 
 // User Sign-up
 app.post('/wonkanet-app/signup', async (req, res) => {
@@ -74,34 +71,107 @@ app.post('/wonkanet-app/signin', async (req, res) => {
   }
 });
 
-// Fetch all products
-app.get('/api/products', async (req, res) => {
+const mongoose = require('mongoose'); // Ensure mongoose is required
+
+const userSchema = new mongoose.Schema({
+  username: String,
+  email: String,
+  password: String
+});
+
+const user = mongoose.model('USER', userSchema);
+
+// GET all items
+app.get('/users', async (req, res) => {
   try {
-    const productsCollection = db.collection('clothing');
-    const products = await productsCollection.find().toArray();
-    res.json(products);
+    // Access the 'USERS' collection
+    const usersCollection = db.collection('USERS');
+    
+    // Retrieve all users
+    const users = await usersCollection.find().toArray(); // Convert cursor to an array
+    
+    // Send the retrieved users in the response
+    res.status(200).json(users);
   } catch (error) {
-    res.status(500).json({ error: 'Failed to fetch products' });
+    // Handle errors
+    console.error('Error fetching users:', error);
+    res.status(500).json({ message: 'An error occurred while fetching users' });
   }
 });
 
-// Fetch product details by ID
-app.get('/api/products/:id', async (req, res) => {
+app.get('/users/:email', async (req, res) => {
   try {
-    const productId = req.params.id;
-    const product = await db.collection('clothing').findOne({ _id: new ObjectId(productId) });
+      const email = req.params.email; 
+      const usersCollection = db.collection('USERS'); // Collection name
+      const user = await usersCollection.findOne({ email: email });
+      
+      if (user) {
+          res.json(user);
+      } else {
+          res.status(404).send('User not found');
+      }
+  } catch (error) {
+      res.status(500).send('Error retrieving user');
+  }
+});
 
-    if (!product) {
-      return res.status(404).json({ error: 'Product not found' });
+// POST new item
+app.post('/USERS', async (req, res) => {
+  const newUser = new user(req.body);
+  await newUser.save();
+  res.status(201).json(newUser);
+});
+
+app.put('/user', async (req, res) => {
+  const userId = req.query.userId;
+
+  // Check if userId is a valid ObjectId
+  if (!ObjectId.isValid(userId)) {
+    return res.status(400).json({ message: 'Invalid user ID' });
+  }
+
+  try {
+    const usersCollection = db.collection('USERS');
+    const updatedUser = await usersCollection.updateOne(
+      { _id: new ObjectId(userId) }, // Convert string ID to ObjectId
+      { $set: req.body }
+    );
+
+    if (updatedUser.matchedCount === 0) {
+      return res.status(404).json({ message: 'USER not found' });
+    } else{
+
+      res.json({ message: 'USER updated successfully' });
     }
 
-    res.json(product);
   } catch (error) {
-    res.status(500).json({ error: 'Failed to fetch product details' });
+    console.error("Error in updating user:", error); // Log the error
+    res.status(500).json({ message: 'Internal Server Error' });
   }
 });
 
-app.listen(PORT, async () => {
+
+app.delete('/deleteuser/:email', async (req, res) => {
+  try {
+      const email = req.params.email; // Get the email from the request parameters
+      const usersCollection = db.collection('USERS'); // Collection name
+
+      // Delete the user based on the email
+      const result = await usersCollection.deleteOne({ email: email });
+
+      if (result.deletedCount === 1) {
+          res.status(200).send('User successfully deleted');
+      } else {
+          res.status(404).send('User not found');
+      }
+  } catch (error) {
+      console.error('Error deleting user:', error.message);
+      res.status(500).send('Error deleting user');
+  }
+});
+
+
+app.listen(PORT, '0.0.0.0', async () => {
   await connectToMongo();
-  console.log(`Server is running on http://localhost:${PORT}`);
+  console.log(`Server is running on http://3.81.249.217:${PORT}`);
 });
