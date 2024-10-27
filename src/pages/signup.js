@@ -1,51 +1,47 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 import './signup.css';
 
 const Signup = () => {
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [formData, setFormData] = useState({ username: '', email: '', password: '' });
   const [message, setMessage] = useState('');
   const navigate = useNavigate();
 
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
-      const response = await axios.post('http://3.90.242.200:8000/wonkanet-app/signup', {
-        username,
-        email,
-        password
-      });
+      const response = await axios.post('http://3.90.242.200:8000/wonkanet-app/signup', formData);
 
       if (response && response.data) {
-        setMessage('');  // Clear error message if signup is successful
+        setMessage('');
         alert(response.data.message);
-        navigate('/');  // Navigate after showing the alert
+        navigate('/');
       } else {
         setMessage('Unexpected response from the server.');
       }
     } catch (error) {
-      if (error.response && error.response.data && error.response.data.error) {
-        setMessage('Error: ' + error.response.data.error);
-      } else {
-        setMessage('Error: Failed to connect to the server.');
-      }
+      const errorMessage =
+        error.response?.data?.error || 'Error: Failed to connect to the server.';
+      setMessage(errorMessage);
     }
   };
 
   return (
-    <div className='form'>
+    <div className="signup-form">
       <h1>Sign Up</h1>
       <form onSubmit={handleSubmit}>
         <label htmlFor="username">Username:</label>
         <input
           type="text"
           id="username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
+          name="username"
+          value={formData.username}
+          onChange={handleChange}
           required
         />
         <br />
@@ -53,8 +49,9 @@ const Signup = () => {
         <input
           type="email"
           id="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          name="email"
+          value={formData.email}
+          onChange={handleChange}
           required
         />
         <br />
@@ -62,15 +59,16 @@ const Signup = () => {
         <input
           type="password"
           id="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          name="password"
+          value={formData.password}
+          onChange={handleChange}
           required
         />
         <br />
         <button type="submit">Sign Up</button>
-        <p>Already have an account? <a href="/signin">Sign In</a></p>
+        <p>Already have an account? <Link to="/signin">Sign In</Link></p>
       </form>
-      {message && <p>{message}</p>}
+      {message && <p className="error-message">{message}</p>}
     </div>
   );
 };
