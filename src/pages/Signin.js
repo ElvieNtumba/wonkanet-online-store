@@ -13,7 +13,7 @@ const SignIn = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:8000/wonkanet-app/signin', {
+      const response = await axios.post('http://3.90.242.200:8000/wonkanet-app/signin', {
         email,
         password,
       });
