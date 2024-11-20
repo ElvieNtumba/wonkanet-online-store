@@ -1,4 +1,3 @@
-// src/App.js
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import HomePage from './pages/HomePage';
@@ -14,6 +13,9 @@ import Footer from './components/Footer';
 import ProductCard from './components/ProductCard';
 import Women from './category/Women';
 import PrivateRoute from './components/PrivateRoute';
+import { CartProvider } from './components/CartContext';
+// import { CartProvider } from './components/CartContext';
+
 import './App.css';
 
 const Layout = ({ isAuthenticated, setIsAuthenticated }) => {
@@ -82,7 +84,9 @@ const App = () => {
 
   return (
     <Router>
-      <Layout isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} />
+      <CartProvider> {/* Wrap your entire app with CartProvider */}
+        <Layout isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} />
+      </CartProvider>
     </Router>
   );
 };

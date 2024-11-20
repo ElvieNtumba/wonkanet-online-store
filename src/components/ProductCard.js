@@ -1,36 +1,42 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import './ProductCard.css';
+import { useCart } from '../components/CartContext';
 
-// Import images
-import productImage from './assets/img1.jpg';
-import productImage2 from './assets/img4.jpg';
-import productImage3 from './assets/img5.jpg';
-import productImage4 from './assets/img6.jpg';
-import productImage5 from './assets/img9.jpg';
-import productImage6 from './assets/img10.jpg';
 
-// Map product IDs to images
+// Import images dynamically
 const imageMap = {
-  1: productImage,
-  2: productImage2,
-  3: productImage3,
-  4: productImage4,
-  5: productImage5,
-  6: productImage6,
+  1: require('./assets/img1.jpg'),
+  2: require('./assets/img4.jpg'),
+  3: require('./assets/img5.jpg'),
+  4: require('./assets/img6.jpg'),
+  5: require('./assets/img9.jpg'),
+  6: require('./assets/img10.jpg'),
 };
 
-const ProductCard = ({ product }) => {
-  const imageSrc = imageMap[product.id] || productImage; // Fallback to a default image if not found
+// Fallback image
+const fallbackImage = require('./assets/images (12).jpeg');
+
+const ProductCard = ({ product}) => {
+  const { addToCart } = useCart();
+  console.log({ addToCart });
+  const imageSrc = imageMap[product.id] || fallbackImage;
+
+  // Check if onAddToCart is a function before using it
+  if (typeof addToCart !== 'function') {
+    console.error('onAddToCart is not a function');
+  }
 
   return (
     <div className="product-card">
-      <img src={imageSrc} alt={product.name} />
-      <h2>{product.name}</h2>
-      <p>${product.price}</p>
-      <Link to={`/product/${product.id}`}>View Details</Link>
+      <img src={imageSrc} alt={product.name || 'Product Image'} />
+      <h2>{product.name || 'Unknown Product'}</h2>
+      <p>${product.price?.toFixed(2) || 'N/A'}</p>
+      <button onClick={() => addToCart(product)}>Add to Cart</button>
+      {/* <Link to={`/product/${product.id}`}>View Details</Link> */}
     </div>
   );
 };
+
 
 export default ProductCard;
