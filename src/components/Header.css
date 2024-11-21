@@ -10,9 +10,25 @@
   padding: 10px; 
 }
 
+nav {
+  display: flex;
+  height: 40px;
+}
+
+.logo{
+  padding-right: 10%;
+  padding-left: 5%;
+}
+
+.links{
+  display: flex;
+  width: 50%;
+  justify-content: space-between;
+}
+
 .header nav {
   display: flex;
-  justify-content: space-between;
+  /* justify-content: center; */
   align-items: center;
 }
 
@@ -26,26 +42,18 @@
   text-decoration: underline;
 }
 
-.header-search {
-  display: flex;
-  align-items: center;
-}
 
-.header-search input {
-  padding: 5px;
-  border: none;
-  border-radius: 3px;
-}
-
-.header-search button {
-  padding: 5px 10px;
-  border: none;
-  background-color: #555;
+.logout-button {
+  background-color: transparent;
   color: white;
+  border: 1px solid white;
+  padding: 5px 10px;
   border-radius: 3px;
-  margin-left: 5px;
+  cursor: pointer;
+  margin-left: 10px;
 }
 
-.header-search button:hover {
-  background-color: #777;
+.logout-button:hover {
+  background-color: white;
+  color: #333;
 }

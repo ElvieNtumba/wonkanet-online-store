@@ -15,6 +15,7 @@ import Women from './category/Women';
 import PrivateRoute from './components/PrivateRoute';
 import { CartProvider } from './components/CartContext';
 // import { CartProvider } from './components/CartContext';
+import { UserProvider } from './pages/uesrContext';
 
 import './App.css';
 
@@ -27,6 +28,7 @@ const Layout = ({ isAuthenticated, setIsAuthenticated }) => {
       {/* Conditionally render the header based on route */}
       {!isAuthPage && <Header />}
       <main className="content">
+        <UserProvider>
         <Routes>
           {/* Public routes */}
           <Route path="/signin" element={<Signin setIsAuthenticated={setIsAuthenticated} />} />
@@ -73,6 +75,7 @@ const Layout = ({ isAuthenticated, setIsAuthenticated }) => {
           {/* Handle undefined routes (404 page) */}
           {/* <Route path="*" element={<div>404 - Page Not Found</div>} /> */}
         </Routes>
+        </UserProvider>
       </main>
       {!isAuthPage && <Footer />}
     </div>

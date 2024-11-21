@@ -1,8 +1,7 @@
 import React from 'react';
-// import { Link } from 'react-router-dom';
 import './ProductCard.css';
 import { useCart } from '../components/CartContext';
-
+import { useNavigate } from 'react-router-dom';
 
 // Import images dynamically
 const imageMap = {
@@ -17,26 +16,28 @@ const imageMap = {
 // Fallback image
 const fallbackImage = require('./assets/images (12).jpeg');
 
-const ProductCard = ({ product}) => {
-  const { addToCart } = useCart();
-  console.log({ addToCart });
+const ProductCard = ({ product, isAuthenticated }) => {
+  const { addToCart } = useCart(); // Assuming this is the cart context
+  const navigate = useNavigate();
   const imageSrc = imageMap[product.id] || fallbackImage;
 
-  // Check if onAddToCart is a function before using it
-  if (typeof addToCart !== 'function') {
-    console.error('onAddToCart is not a function');
-  }
+  const handleAddToCart = () => {
+    if (!isAuthenticated) {
+      navigate('/Signin'); // Corrected to the right Signin route
+    } else {
+      addToCart(product); // Add to cart if authenticated
+    }
+  };
 
   return (
     <div className="product-card">
       <img src={imageSrc} alt={product.name || 'Product Image'} />
       <h2>{product.name || 'Unknown Product'}</h2>
       <p>${product.price?.toFixed(2) || 'N/A'}</p>
-      <button onClick={() => addToCart(product)}>Add to Cart</button>
+      <button onClick={handleAddToCart}>Add to Cart</button>
       {/* <Link to={`/product/${product.id}`}>View Details</Link> */}
     </div>
   );
 };
-
 
 export default ProductCard;

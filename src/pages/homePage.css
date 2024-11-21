@@ -7,10 +7,8 @@
     max-height: 900vh;
     height: 100%;
   }
+
   
-/* body{
-  height: 500vh;
-} */
 
   /* Hero Section */
   .hero {
@@ -26,7 +24,7 @@
   }
 
   .hero-content{
-    margin-top: 275vh;
+    /* margin-top: 275vh; */
     margin-left: 0;
     padding-left:0 ;
     

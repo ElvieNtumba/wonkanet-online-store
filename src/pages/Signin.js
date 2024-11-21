@@ -1,25 +1,29 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { useUser } from '../pages/uesrContext';
 import './signin.css';
 
 const SignIn = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
+  const { setUser } = useUser(); // Access the context to set user info
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      const response = await axios.post('http://3.90.242.200:8000/wonkanet-app/signin', {
+      const response = await axios.post('http://localhost:8000/wonkanet-app/signin', {
         email,
         password,
       });
 
       if (response.status === 200) {
-        localStorage.setItem('token', response.data.token);
+        const { token, user } = response.data; // Assuming the API returns user data
+        localStorage.setItem('token', token);
+        setUser(user); // Save user info in context
         navigate('/'); // Redirect to home page
       } else {
         setMessage(response.data.error);
