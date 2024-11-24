@@ -30,6 +30,9 @@ const Header = () => {
           <Link to="/cart">
             <p>Cart</p>
           </Link>
+          <Link to="/sales">
+          <p>Sales</p>
+          </Link>
           {user ? (
             <>
               <span>Welcome, {user.name || user.email}!</span>
@@ -41,9 +44,6 @@ const Header = () => {
             <>
               <Link to="/signin">
                 <p>Sign In</p>
-              </Link>
-              <Link to="/signup">
-                <p>Sign Up</p>
               </Link>
             </>
           )}

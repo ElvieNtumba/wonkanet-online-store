@@ -1,0 +1,24 @@
+[
+    {
+      "id": 1,
+      "name": "Stylish T-Shirt",
+      "image": "/images/tshirt.jpg",
+      "oldPrice": 300,
+      "newPrice": 200
+    },
+    {
+      "id": 2,
+      "name": "Comfortable Sneakers",
+      "image": "/images/sneakers.jpg",
+      "oldPrice": 1500,
+      "newPrice": 1200
+    },
+    {
+      "id": 3,
+      "name": "Elegant Watch",
+      "image": "/images/watch.jpg",
+      "oldPrice": 2500,
+      "newPrice": 2000
+    }
+  ]
+  

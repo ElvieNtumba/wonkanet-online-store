@@ -16,6 +16,7 @@ import PrivateRoute from './components/PrivateRoute';
 import { CartProvider } from './components/CartContext';
 // import { CartProvider } from './components/CartContext';
 import { UserProvider } from './pages/uesrContext';
+import SalesPage from './category/sale'
 
 import './App.css';
 
@@ -71,7 +72,7 @@ const Layout = ({ isAuthenticated, setIsAuthenticated }) => {
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/productcard" element={<ProductCard />} />
           <Route path="/women" element={<Women />} />
-
+          <Route path="/sales" element={<SalesPage />} />
           {/* Handle undefined routes (404 page) */}
           {/* <Route path="*" element={<div>404 - Page Not Found</div>} /> */}
         </Routes>

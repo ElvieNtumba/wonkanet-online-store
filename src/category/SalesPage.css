@@ -1,0 +1,32 @@
+.sales-page {
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .products-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+  }
+  
+  .product-card {
+    border: 1px solid #ccc;
+    padding: 15px;
+    border-radius: 8px;
+    max-width: 200px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .product-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }
+  
+  .old-price {
+    text-decoration: line-through;
+    color: red;
+    margin-right: 10px;
+  }
+  

@@ -66,14 +66,14 @@ const HomePage = () => {
       </section>
 
       {/* Category Links */}
-      <section className="categories">
+      {/* <section className="categories">
         <h2>Shop by Category</h2>
         <div className="category-grid">
           <a href="/category/women" className="category-card">Women</a>
           <a href="/category/accessories" className="category-card">Accessories</a>
           <a href="/category/sale" className="category-card">Sale</a>
         </div>
-      </section>
+      </section> */}
 
       {/* Testimonials */}
       <section className="testimonials">
