@@ -15,7 +15,7 @@ const Signup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://3.90.242.200:8000/wonkanet-app/signup', formData);
+      const response = await axios.post('http://54.165.105.213:8000/wonkanet-app/signup', formData);
 
       if (response && response.data) {
         setMessage('');
